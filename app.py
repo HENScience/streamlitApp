@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import ydata_profiling
 from datetime import datetime, time
+from streamlit_pandas_profiling import st_profile_report
 
 
 st.title('This is My First Streamlit App!')
@@ -28,7 +30,8 @@ appointment = st.slider("Schedule your appointment:",
                         max_value=time(15, 0),
                         value=(time(11, 30), time(12, 45))
                         )
-st.write(f'You are scheduled for: {(str(appointment[0].hour) + "."+ str(appointment[0].minute), str(appointment[1].hour) + "."+ str(appointment[1].minute))}')
+st.write(f'You are scheduled '
+         f'for: {(str(appointment[0].hour) + "."+ str(appointment[0].minute), str(appointment[1].hour) + "."+ str(appointment[1].minute))}')
 
 # Example 4
 st.subheader('Datetime slider')
@@ -72,3 +75,10 @@ if coffee:
     st.write('Okay! Here is some more Coffee')
 if cola:
     st.write('Here you go cola')
+
+
+# 6.第三方模块：streamlit_pandas_profiling
+st.header('`streamlit_pandas_profiling`')
+df = pd.read_csv('data/penguins_cleaned.csv')
+pr = df.profile_report()
+st_profile_report(pr)
